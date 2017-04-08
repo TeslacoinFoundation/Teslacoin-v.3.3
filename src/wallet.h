@@ -17,6 +17,8 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "walletdb.h"
+#include "base/transaction.h"
+#include "base/merkletx.h"
 
 extern unsigned int nStakeMaxAge;
 extern bool fWalletUnlockStakingOnly;

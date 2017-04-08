@@ -27,7 +27,7 @@ LIBS= \
 
 DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
 DEBUGFLAGS=-g
-CFLAGS=-mthreads -O2 -msse2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
+CFLAGS=-mthreads -O2 -msse2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -fpermissive $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
@@ -83,7 +83,15 @@ OBJS= \
     obj/pbkdf2.o \
     obj/scrypt_mine.o \
     obj/scrypt-x86.o \
-    obj/scrypt-x86_64.o
+    obj/scrypt-x86_64.o \
+    obj/miner.o \
+    obj/messages.o \
+    obj/base/block.o \
+    obj/base/index.o \
+    obj/base/locator.o \
+    obj/base/mempool.o \
+    obj/base/merkletx.o \
+    obj/base/transaction.o
 
 all: Teslacoind.exe
 
@@ -113,6 +121,7 @@ test_bitcoin.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 clean:
 	-del /Q Teslacoind test_Teslacoin
 	-del /Q obj\*
+	-del /Q obj\base\*
 	-del /Q obj-test\*
 
 FORCE:

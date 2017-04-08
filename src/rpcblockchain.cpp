@@ -5,6 +5,9 @@
 
 #include "main.h"
 #include "bitcoinrpc.h"
+#include "base/index.h"
+#include "base/mempool.h"
+#include "base/merkletx.h"
 
 using namespace json_spirit;
 using namespace std;

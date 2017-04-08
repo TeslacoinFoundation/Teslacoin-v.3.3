@@ -32,7 +32,7 @@ LIBS= \
 
 DEFS=-D_MT -DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE
 DEBUGFLAGS=-g
-CFLAGS=-O2 -msse2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
+CFLAGS=-O2 -msse2 -w -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -fpermissive $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat
 
 TESTDEFS = -DTEST_DATA_DIR=$(abspath test/data)
@@ -87,7 +87,15 @@ OBJS= \
     obj/pbkdf2.o \
     obj/scrypt_mine.o \
     obj/scrypt-x86.o \
-    obj/scrypt-x86_64.o
+    obj/scrypt-x86_64.o \
+    obj/miner.o \
+    obj/messages.o \
+    obj/base/block.o \
+    obj/base/index.o \
+    obj/base/locator.o \
+    obj/base/mempool.o \
+    obj/base/merkletx.o \
+    obj/base/transaction.o
 
 all: Teslacoind.exe
 
@@ -118,6 +126,7 @@ obj/scrypt-x86_64.o: scrypt-x86_64.S
 
 clean:
 	-rm -f obj/*.o
+	-rm -f obj/base/*.o
 	-rm -f Teslacoind.exe
 	-rm -f obj-test/*.o
 	-rm -f test_Teslacoin.exe

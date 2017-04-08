@@ -66,7 +66,7 @@ CFLAGS = -g -msse2
 endif
 
 # ppc doesn't work because we don't support big-endian
-CFLAGS += -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
+CFLAGS += -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -fpermissive \
     $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 
 OBJS= \
@@ -101,7 +101,16 @@ OBJS= \
     obj/kernel.o \
     obj/scrypt_mine.o \
     obj/scrypt-x86.o \
-    obj/scrypt-x86_64.o
+    obj/scrypt-x86_64.o \
+    obj/miner.o \
+    obj/messages.o \
+    obj/base/block.o \
+    obj/base/index.o \
+    obj/base/locator.o \
+    obj/base/mempool.o \
+    obj/base/merkletx.o \
+    obj/base/transaction.o
+
 
 ifndef USE_UPNP
 	override USE_UPNP = -
@@ -165,8 +174,10 @@ clean:
 	-rm -f Teslacoind test_Teslacoin
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
+	-rm -f obj/base/*.o
 	-rm -f obj/*.P
 	-rm -f obj-test/*.P
+	-rm -f obj/base/*.P
 	-rm -f obj/build.h
 
 FORCE:

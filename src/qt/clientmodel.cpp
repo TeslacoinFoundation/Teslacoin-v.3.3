@@ -7,6 +7,7 @@
 #include "alert.h"
 #include "main.h"
 #include "ui_interface.h"
+#include "base/index.h"
 
 #include <QDateTime>
 #include <QTimer>

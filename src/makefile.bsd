@@ -94,7 +94,7 @@ DEBUGFLAGS=-g
 
 # CXXFLAGS can be specified on the make command line, so we use xCXXFLAGS that only
 # adds some defaults in front. Unfortunately, CXXFLAGS=... $(CXXFLAGS) does not work.
-xCXXFLAGS=-O0 -msse2 -pthread -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter \
+xCXXFLAGS=-O0 -msse2 -pthread -Wall -Wextra -Wformat -Wformat-security -Wno-unused-parameter -fpermissive \
     $(DEBUGFLAGS) $(DEFS) $(HARDENING) $(CXXFLAGS)
 
 # LDFLAGS can be specified on the make command line, so we use xLDFLAGS that only
@@ -133,7 +133,15 @@ OBJS= \
     obj/pbkdf2.o \
     obj/scrypt_mine.o \
     obj/scrypt-x86.o \
-    obj/scrypt-x86_64.o
+    obj/scrypt-x86_64.o \
+    obj/miner.o \
+    obj/messages.o \
+    obj/base/block.o \
+    obj/base/index.o \
+    obj/base/locator.o \
+    obj/base/mempool.o \
+    obj/base/merkletx.o \
+    obj/base/transaction.o 
 
 
 all: Teslacoind
@@ -182,8 +190,10 @@ clean:
 	-rm -f Teslacoind test_Teslacoin
 	-rm -f obj/*.o
 	-rm -f obj-test/*.o
+	-rm -f obj/base/*.o
 	-rm -f obj/*.P
 	-rm -f obj-test/*.P
+	-rm -f obj/base/*.P
 	-rm -f obj/build.h
 
 FORCE:

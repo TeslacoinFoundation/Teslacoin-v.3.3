@@ -6,6 +6,7 @@
 #include <boost/foreach.hpp>
 
 #include "checkpoints.h"
+#include "base/index.h"
 
 //#include "db.h"
 #include "txdb.h"

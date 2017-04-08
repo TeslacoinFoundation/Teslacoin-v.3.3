@@ -3,13 +3,13 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "irc.h"
 #include "db.h"
 #include "net.h"
 #include "init.h"
 #include "strlcpy.h"
 #include "addrman.h"
 #include "ui_interface.h"
+#include "base/index.h"
 
 #ifdef WIN32
 #include <string.h>
@@ -346,7 +346,6 @@ bool GetMyExternalIP2(const CService& addrConnect, const char* pszGet, const cha
     return error("GetMyExternalIP() : connection closed");
 }
 
-// We now get our external IP from the IRC server first and only use this as a backup
 bool GetMyExternalIP(CNetAddr& ipRet)
 {
     CService addrConnect;
@@ -886,7 +885,7 @@ void ThreadSocketHandler2(void* parg)
 
                     if (nPos > ReceiveBufferSize()) {
                         if (!pnode->fDisconnect)
-                            printf("socket recv flood control disconnect (%"PRIszu" bytes)\n", vRecv.size());
+                            printf("socket recv flood control disconnect (%" PRIszu " bytes)\n", vRecv.size());
                         pnode->CloseSocketDisconnect();
                     }
                     else {
@@ -1251,7 +1250,7 @@ void DumpAddresses()
     CAddrDB adb;
     adb.Write(addrman);
 
-    printf("Flushed %d addresses to peers.dat  %"PRI64d"ms\n",
+    printf("Flushed %d addresses to peers.dat  %" PRI64d "ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 }
 
@@ -1330,7 +1329,7 @@ void static ThreadStakeMinter(void* parg)
     try
     {
         vnThreadsRunning[THREAD_MINTER]++;
-        BitcoinMiner(pwallet, true);
+        TeslaMiner(pwallet, true);
         vnThreadsRunning[THREAD_MINTER]--;
     }
     catch (std::exception& e) {
@@ -1387,7 +1386,6 @@ void ThreadOpenConnections2(void* parg)
         if (fShutdown)
             return;
 
-        // Add seed nodes if IRC isn't working
         if (addrman.size()==0 && (GetTime() - nStart > 60) && !fTestNet)
         {
             std::vector<CAddress> vAdd;
@@ -1881,10 +1879,6 @@ void StartNode(void* parg)
     if (fUseUPnP)
         MapPort();
 
-    // Get addresses from IRC and advertise ours
-    if (!NewThread(ThreadIRCSeed, NULL))
-        printf("Error: NewThread(ThreadIRCSeed) failed\n");
-
     // Send and receive from sockets, accept connections
     if (!NewThread(ThreadSocketHandler, NULL))
         printf("Error: NewThread(ThreadSocketHandler) failed\n");
@@ -1936,7 +1930,7 @@ bool StopNode()
     if (vnThreadsRunning[THREAD_SOCKETHANDLER] > 0) printf("ThreadSocketHandler still running\n");
     if (vnThreadsRunning[THREAD_OPENCONNECTIONS] > 0) printf("ThreadOpenConnections still running\n");
     if (vnThreadsRunning[THREAD_MESSAGEHANDLER] > 0) printf("ThreadMessageHandler still running\n");
-    if (vnThreadsRunning[THREAD_MINER] > 0) printf("ThreadBitcoinMiner still running\n");
+    if (vnThreadsRunning[THREAD_MINER] > 0) printf("ThreadTeslaMiner still running\n");
     if (vnThreadsRunning[THREAD_RPCLISTENER] > 0) printf("ThreadRPCListener still running\n");
     if (vnThreadsRunning[THREAD_RPCHANDLER] > 0) printf("ThreadsRPCServer still running\n");
 #ifdef USE_UPNP

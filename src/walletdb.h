@@ -7,6 +7,7 @@
 
 #include "db.h"
 #include "base58.h"
+#include "base/locator.h"
 
 class CKeyPool;
 class CAccount;
