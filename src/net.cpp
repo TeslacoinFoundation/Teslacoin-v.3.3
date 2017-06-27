@@ -1169,7 +1169,8 @@ static const char *strDNSSeed[][2] = {
     {"tesla.coin6", "115.28.38.190"},
     {"tesla.coin7", "5.189.187.91"},
     {"tesla.coin8", "74.65.200.29"},
-	{"tesla.coin9", "81.245.187.75"}
+    {"tesla.coin9", "81.245.187.75"},
+    {"teslacoinv3.3-seed", "94.177.203.132"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
