@@ -17,6 +17,6 @@ POS: 12% annualy
 Dynamic difficulty retarget every block
 
 p2p port: 1856
-RPC port: 7685
+RPC port: 1857
 
 
