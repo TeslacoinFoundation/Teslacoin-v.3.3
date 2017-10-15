@@ -248,7 +248,7 @@ Value getblock(const Array& params, bool fHelp)
     //std::string strHash = params[0].get_str();
     //uint256 hash(strHash);
     std::string strHash = params[0].get_str();
-	uint256 hash(uint256(strHash));
+	uint256 hash(uint256S(strHash));
 
     int verbosity = 1;
     if (params.size() > 1) {
