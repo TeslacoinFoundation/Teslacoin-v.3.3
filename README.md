@@ -1,14 +1,14 @@
-Teslacoin 
+# Teslacoin
 
 A hybrid Proof of Stake / Proof of work alternative Crypto Currency
 
 POW: 172 coins per block reducing by ~18.56% every ~30 days
 
-POS: 12% annualy
+POS: 12% annually
      
-     Min age: 24 hours
+    Min age: 24 hours
      
-     Max age: 90 days
+    Max age: 90 days
 
 30 second blocks
 
@@ -18,5 +18,4 @@ Dynamic difficulty retarget every block
 
 p2p port: 1856
 RPC port: 1857
-
 
